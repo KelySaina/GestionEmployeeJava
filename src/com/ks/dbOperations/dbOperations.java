@@ -36,12 +36,38 @@ public class dbOperations {
         model.addColumn("Nom");
         try{
             
-            ResultSet rs = this.Connect().createStatement().executeQuery("select numEntreprise, nomEntreprise from entreprise order by numEntreprise");
+            ResultSet rs = this.Connect().createStatement().executeQuery("select numEntreprise, nomEntreprise from entreprise order by numEntreprise asc");
             
             while(rs.next()){
                 Object[] row = new Object[2];
                 row[0] = rs.getString("numEntreprise");
                 row[1] = rs.getString("nomEntreprise");
+                model.addRow(row);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return model;
+        
+    }
+    
+    public TableModel listEmployee(){
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Numero");
+        model.addColumn("Nom");
+        model.addColumn("Adresse");
+        try{
+            
+            ResultSet rs = this.Connect().createStatement().executeQuery("select numEmployee, nomEmployee, adresseEmployee from employee order by numEmployee asc");
+            
+            while(rs.next()){
+                Object[] row = new Object[3];
+                row[0] = rs.getString("numEmployee");
+                row[1] = rs.getString("nomEmployee");
+                row[2] = rs.getString("adresseEmployee");
                 model.addRow(row);
             }
             
@@ -61,6 +87,29 @@ public class dbOperations {
             
             stmt.setString(1, num);
             stmt.setString(2,nom);
+            
+            int n = stmt.executeUpdate();
+            
+            if(n>0){
+                return true;
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+        
+    }
+    
+    public boolean addEmployee(String num, String nom, String adr){
+        
+        try{
+            
+            PreparedStatement stmt = this.Connect().prepareStatement("insert into employee(numEmployee,nomEmployee, adresseEmployee) values(?,?,?)");
+            
+            stmt.setString(1, num);
+            stmt.setString(2,nom);
+            stmt.setString(3,adr);
             
             int n = stmt.executeUpdate();
             
@@ -98,27 +147,26 @@ public class dbOperations {
         
     }
     
-    public TableModel searchEntreprise(String key){
+    public boolean deleteEmployee(String num){
         
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Numero");
-        model.addColumn("Nom");
         try{
             
-            ResultSet rs = this.Connect().createStatement().executeQuery("select numEntreprise, nomEntreprise from entreprise where numEntreprise like '%"+key+"%' or nomEntreprise like '%"+key+"%' order by numEntreprise");
+            PreparedStatement stmt = this.Connect().prepareStatement("delete from employee where numEmployee='"+num+"'");
             
-            while(rs.next()){
-                Object[] row = new Object[2];
-                row[0] = rs.getString("numEntreprise");
-                row[1] = rs.getString("nomEntreprise");
-                model.addRow(row);
+            int n = stmt.executeUpdate();
+            
+            if(n>0){
+                PreparedStatement stmt2 = this.Connect().prepareStatement("delete from travail where numEmployee='"+num+"'");
+            
+                int k = stmt2.executeUpdate();
+                
+                return true;
             }
             
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        
-        return model;
+        return false;
         
     }
     
@@ -142,6 +190,77 @@ public class dbOperations {
         return false;
     }
     
+    public boolean updateEmployee(String prevNum,String newNum,String newNom, String newAdr){
+        
+        try{
+            
+            PreparedStatement stmt = this.Connect().prepareStatement("update employee set numEmployee=?, nomEmployee=?, adresseEmployee=? where numEmployee=?");
+            stmt.setString(1, newNum);
+            stmt.setString(2,newNom);
+            stmt.setString(3,newAdr);
+            stmt.setString(4,prevNum);
+            
+            int n = stmt.executeUpdate();
+            
+            if(n>0){
+                return true;
+            }    
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    
+    public TableModel searchEntreprise(String key){
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Numero");
+        model.addColumn("Nom");
+        try{
+            
+            ResultSet rs = this.Connect().createStatement().executeQuery("select numEntreprise, nomEntreprise from entreprise where numEntreprise like '%"+key+"%' or nomEntreprise like '%"+key+"%' order by numEntreprise asc");
+            
+            while(rs.next()){
+                Object[] row = new Object[2];
+                row[0] = rs.getString("numEntreprise");
+                row[1] = rs.getString("nomEntreprise");
+                model.addRow(row);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return model;
+        
+    }
+    public TableModel searchEmployee(String key){
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Numero");
+        model.addColumn("Nom");
+        model.addColumn("Adresse");
+        try{
+            
+            ResultSet rs = this.Connect().createStatement().executeQuery("select numEmployee, nomEmployee, adresseEmployee from employee where numEmployee like '%"+key+"%' or nomEmployee like '%"+key+"%' or adresseEmployee like '%"+key+"%' order by numEmployee asc");
+            
+            while(rs.next()){
+                Object[] row = new Object[3];
+                row[0] = rs.getString("numEmployee");
+                row[1] = rs.getString("nomEmployee");
+                row[2] = rs.getString("adresseEmployee");
+                model.addRow(row);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return model;
+        
+    }
+    
+    
     public boolean checkNumEntreprise(String num){
         try{
             ResultSet rs = this.Connect().createStatement().executeQuery("select numEntreprise from entreprise where numEntreprise='"+num+"'");
@@ -155,13 +274,26 @@ public class dbOperations {
         }        
         return false;
     }
+    public boolean checkNumEmployee(String num){
+        try{
+            ResultSet rs = this.Connect().createStatement().executeQuery("select numEmployee from employee where numEmployee='"+num+"'");
+            
+            if(rs.next()){
+                return true;
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }        
+        return false;
+    }
     
-    public DefaultPieDataset getChartDataset(String entreprise){
+    public DefaultPieDataset getChartDataset(){
         
         DefaultPieDataset dataset = new DefaultPieDataset();
         try{
             
-            ResultSet rs = this.Connect().createStatement().executeQuery("select employee.nomEmployee,travail.tauxHoraire*travail.nbHeures as salaireEmployee from employee join travail on travail.numEmployee=employee.numEmployee where travail.numEntreprise='"+entreprise+"'");
+            ResultSet rs = this.Connect().createStatement().executeQuery("select employee.nomEmployee,SUM(travail.tauxHoraire*travail.nbHeures) as salaireEmployee from employee join travail on travail.numEmployee=employee.numEmployee group by travail.numEmployee");
 
             while(rs.next()){                
                 dataset.setValue(rs.getString("nomEmployee")+" ("+rs.getInt("salaireEmployee")+"Ar)", rs.getInt("salaireEmployee"));            

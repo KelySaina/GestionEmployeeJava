@@ -5,7 +5,16 @@
 package com.ks.ui;
 import com.ks.dbOperations.dbOperations;
 import com.ks.ui.addEntreprise;
+import com.ks.ui.addEmployee;
+import com.ks.ui.travailUI;
 import javax.swing.JOptionPane;
+import com.ks.pdf.pdfGen;
+import com.ks.chart.chart;
+import org.jfree.chart.ChartPanel;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+
+
 
 
 /**
@@ -13,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author thyler
  */
 public class dashboardUI extends javax.swing.JFrame {
-    private String numEntreprise, nomEntreprise,aNumEntreprise;
+    private String numEntreprise, nomEntreprise, numEmployee, nomEmployee, adresseEmployee;
     
     public String getNumEntreprise(){
         return this.numEntreprise;
@@ -30,11 +39,45 @@ public class dashboardUI extends javax.swing.JFrame {
     public void setNomEntreprise(String newNomEntreprise){
         this.nomEntreprise = newNomEntreprise;
     }
+    
+    public String getNumEmployee(){
+        return this.numEmployee;
+    }
+    
+    public void setNumEmployee(String newNumEmployee){
+        this.numEmployee = newNumEmployee;
+    }
+    
+    public String getNomEmployee(){
+        return this.nomEmployee;
+    }
+    
+    public void setNomEmployee(String newNomEmployee){
+        this.nomEmployee = newNomEmployee;
+    }
+    
+    public String getAdresseEmployee(){
+        return this.adresseEmployee;
+    }
+    
+    public void setAdresseEmployee(String newAdresseEmployee){
+        this.adresseEmployee = newAdresseEmployee;
+    }
+    
+    
     /**
      * Creates new form dashboardUI
      */
     public dashboardUI() {
         initComponents();
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+            // Call the updateUI() method on the content pane to apply the new Look and Feel
+            getContentPane().setBackground(UIManager.getColor("Panel.background"));
+            SwingUtilities.updateComponentTreeUI(getContentPane());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -46,6 +89,9 @@ public class dashboardUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel7 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -60,10 +106,36 @@ public class dashboardUI extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 367, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1000, 500));
-        setMinimumSize(new java.awt.Dimension(1000, 500));
+        setMaximumSize(new java.awt.Dimension(1075, 575));
+        setMinimumSize(new java.awt.Dimension(1075, 575));
         setResizable(false);
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -79,20 +151,32 @@ public class dashboardUI extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTabbedPane1.setMaximumSize(new java.awt.Dimension(1075, 575));
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(1075, 575));
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1075, 575));
+
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/thyler/testProjets/netbeans/GestionEmployee/assets/building400x400.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 47, -1, -1));
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 47, -1, -1));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -109,7 +193,7 @@ public class dashboardUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Cantarell Extra Bold", 1, 22)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Liste des entreprises");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 267, 34));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 267, 34));
 
         jButton1.setText("Ajouter une entreprise");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +210,7 @@ public class dashboardUI extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 260, -1));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 405, 260, 30));
 
         jButton3.setText("Enregistrer ");
         jButton3.setEnabled(false);
@@ -136,7 +220,7 @@ public class dashboardUI extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 300, -1));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 405, 300, 30));
 
         jButton4.setText("Retirer");
         jButton4.setEnabled(false);
@@ -146,7 +230,7 @@ public class dashboardUI extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 300, -1));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 300, 30));
 
         jLabel3.setText("Selectionner un entreprise");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 310, -1));
@@ -158,8 +242,13 @@ public class dashboardUI extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, 260, -1));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, 260, 30));
 
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
@@ -170,14 +259,121 @@ public class dashboardUI extends javax.swing.JFrame {
         jLabel4.setText("Rechercher");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 7, -1, 490));
+        jButton11.setText("Generer PDF");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, -1, -1));
+
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 590, 520));
+
+        jTabbedPane1.addTab("Entreprises", jPanel3);
+
+        jPanel4.setMaximumSize(new java.awt.Dimension(1075, 575));
+        jPanel4.setMinimumSize(new java.awt.Dimension(1075, 575));
+        jPanel4.setPreferredSize(new java.awt.Dimension(1075, 575));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel8.setLayout(new java.awt.BorderLayout());
+        jPanel4.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 500));
+
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Cantarell Extra Bold", 1, 22)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Liste des employees");
+        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 267, 34));
+
+        jTable2.setModel(new dbOperations().listEmployee());
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 169, 630, 253));
+
+        jButton6.setText("Ajouter un employee");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 122, 228, 34));
+
+        jButton7.setText("Enregistrer");
+        jButton7.setEnabled(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 210, -1));
+
+        jButton8.setText("Annuler selection");
+        jButton8.setEnabled(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, 200, -1));
+
+        jLabel7.setText("Selectionner un employee");
+        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 59, -1, -1));
+
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField2FocusGained(evt);
+            }
+        });
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+        jPanel5.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 200, 34));
+
+        jLabel8.setText("Rechercher");
+        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, -1, -1));
+
+        jButton9.setText("Retirer");
+        jButton9.setEnabled(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 200, -1));
+
+        jButton10.setText("Generer PDF");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 480, -1, -1));
+
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 690, 510));
+
+        jTabbedPane1.addTab("Employees", jPanel4);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        System.out.println(this.getNumEntreprise());
+        new travailUI(this.getNumEntreprise()).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -216,9 +412,7 @@ public class dashboardUI extends javax.swing.JFrame {
                 this.jLabel3.setText("Selectionner une entreprise");
             }else{
                 JOptionPane.showMessageDialog(null, "Une erreur s'est produite", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-            }
-            
-            
+            }           
         } else {
             // do nothing
         }
@@ -227,9 +421,11 @@ public class dashboardUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         addEntreprise addForm = new addEntreprise();
         addForm.setParent(this);
         addForm.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -239,6 +435,8 @@ public class dashboardUI extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         // TODO add your handling code here:
         this.jTable1.setModel(new dbOperations().listEntreprise());
+        this.jTable2.setModel(new dbOperations().listEmployee());
+        this.jPanel8.add(new ChartPanel(new chart().createPieChart("Salaire globale de chaque employee", new dbOperations().getChartDataset())));
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -337,9 +535,178 @@ public class dashboardUI extends javax.swing.JFrame {
         if(this.jTextField1.getText().trim().isEmpty()){
             this.jTable1.setModel(new dbOperations().listEntreprise());
         }else{
-            this.jTable1.setModel(new dbOperations().searchEntreprise(this.jTextField1.getText().toString()));
+            this.jTable1.setModel(new dbOperations().searchEntreprise(this.jTextField1.getText()));
         }
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(false);
+        this.jButton4.setEnabled(false);
+        this.jButton5.setEnabled(false);
+        this.jButton2.setText("Gerer");
+        this.jButton3.setText("Enregistrer");
+        this.jButton4.setText("Retirer");
+        this.jLabel3.setText("Selectionner une entreprise");
+        this.jTable1.clearSelection();
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        this.jButton7.setEnabled(false);
+        this.jButton8.setEnabled(false);
+        this.jButton9.setEnabled(false);
+        this.jTable2.clearSelection();
+        this.jLabel7.setText("Selectionner un employee");
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new addEmployee().setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        if(this.jTextField2.getText().trim().isEmpty()){
+            this.jTable2.setModel(new dbOperations().listEmployee());
+        }else{
+            this.jTable2.setModel(new dbOperations().searchEmployee(this.jTextField2.getText()));
+        }
+        this.jButton7.setEnabled(false);
+        this.jButton8.setEnabled(false);
+        this.jButton9.setEnabled(false);
+        this.jLabel7.setText("Selectionner un employee");
+        this.jTable2.clearSelection();
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        int row = this.jTable2.getSelectedRow();
+        Object id = this.jTable2.getValueAt(row, 0);
+        Object nom = this.jTable2.getValueAt(row, 1);
+        Object adr = this.jTable2.getValueAt(row, 2);
+        this.setNumEmployee(id.toString());
+        this.setNomEmployee(nom.toString());
+        this.setAdresseEmployee(adr.toString());
+        this.jButton7.setEnabled(true);
+        this.jButton8.setEnabled(true);
+        this.jButton9.setEnabled(true);
+        this.jTextField2.setText(null);
+        this.jLabel7.setText(null);
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Cette action entrainera la suppression de tous les employees et leurs travails Continuer?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            // delete the record from the database
+            if(new dbOperations().deleteEmployee(this.getNumEmployee())){
+                JOptionPane.showMessageDialog(null, "Toutes informations concernant "+this.getNomEmployee()+" ont ete retirees", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                this.jButton7.setEnabled(false);
+                this.jButton8.setEnabled(false);
+                this.jButton9.setEnabled(false);
+                this.jTextField2.setText(null);
+                this.jLabel7.setText("Selectionner un employee");
+            }else{
+                JOptionPane.showMessageDialog(null, "Une erreur s'est produite", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+            }           
+        } else {
+            // do nothing
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        // TODO add your handling code here:
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(false);
+        this.jButton4.setEnabled(false);
+        this.jButton5.setEnabled(false);
+        this.jButton2.setText("Gerer");
+        this.jButton3.setText("Enregistrer");
+        this.jButton4.setText("Retirer");
+        this.jLabel3.setText("Selectionner une entreprise");
+        this.jTable1.clearSelection();
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
+        // TODO add your handling code here:
+        this.jButton7.setEnabled(false);
+        this.jButton8.setEnabled(false);
+        this.jButton9.setEnabled(false);
+        this.jTextField2.setText(null);
+        this.jLabel7.setText("Selectionner un employee");
+        this.jTable2.clearSelection();
+    }//GEN-LAST:event_jTextField2FocusGained
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = this.jTable2.getSelectedRow();
+        String previousNumVal = this.getNumEmployee();
+        String previousNomVal = this.getNomEmployee();
+        String previousAdrVal = this.getAdresseEmployee();
+        String newNumVal = this.jTable2.getValueAt(selectedRow,0).toString();
+        String newNomVal = this.jTable2.getValueAt(selectedRow,1).toString();
+        String newAdrVal = this.jTable2.getValueAt(selectedRow,2).toString();
+        if(previousNumVal == newNumVal && previousNomVal == newNomVal && previousAdrVal == newAdrVal){
+            JOptionPane.showMessageDialog(null, "Aucune modification n'a ete faite", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+            this.jTable2.clearSelection();
+            this.jButton7.setEnabled(false);
+            this.jButton8.setEnabled(false);
+            this.jButton9.setEnabled(false);
+            this.jTextField1.setText(null);
+            this.jLabel7.setText("Selectionner un employee");
+        }else{
+            if (newNumVal.matches("^[Ee]\\d{3}$") && newNumVal.trim().length() >= 4) {
+                    // input matches the pattern
+                if(new dbOperations().checkNumEmployee(newNumVal.toUpperCase()) && previousNumVal != newNumVal){
+                    JOptionPane.showMessageDialog(null, "Ce numero d'employee est deja prise", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+                    this.jTable2.clearSelection();
+                    this.jButton7.setEnabled(false);
+                    this.jButton8.setEnabled(false);
+                    this.jButton9.setEnabled(false);
+                    this.jTextField2.setText(null);
+                    this.jLabel7.setText("Selectionner un employee");
+                }else{
+                    if(new dbOperations().updateEmployee(previousNumVal, newNumVal, newNomVal,newAdrVal)){
+                        JOptionPane.showMessageDialog(null, "Modification reussie", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                        this.jTable2.clearSelection();
+                        this.jButton7.setEnabled(false);
+                        this.jButton8.setEnabled(false);
+                        this.jButton9.setEnabled(false);
+                        this.jTextField2.setText(null);
+                        this.jLabel7.setText("Selectionner un employee");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Une erreur s'est produite", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+                        this.jTable2.clearSelection();
+                        this.jButton7.setEnabled(false);
+                        this.jButton8.setEnabled(false);
+                        this.jButton9.setEnabled(false);
+                        this.jTextField2.setText(null);
+                        this.jLabel7.setText("Selectionner un employee");
+                    }
+                }   
+            } else {
+                JOptionPane.showMessageDialog(null, "Le numero d'employee doit suivre le format 'E001'", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+                this.jTable2.clearSelection();
+                this.jButton7.setEnabled(false);
+                this.jButton8.setEnabled(false);
+                this.jButton9.setEnabled(false);
+                this.jTextField1.setText(null);
+                this.jLabel7.setText("Selectionner un employee");
+            }
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable1,"Entreprise")+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable2,"Employee")+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,18 +746,36 @@ public class dashboardUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

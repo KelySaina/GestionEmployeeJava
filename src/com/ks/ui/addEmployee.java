@@ -3,30 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.ks.ui;
+
 import com.ks.dbOperations.dbOperations;
 import javax.swing.JOptionPane;
-import javax.swing.JFrame;
-import java.awt.Color;
 
 /**
  *
  * @author thyler
  */
-public class addEntreprise extends javax.swing.JFrame {
-    private JFrame f;
-    
-    public void setParent( JFrame nf){
-        this.f = nf;
-    }
-    
-    public JFrame getParent(){
-        return this.f;
-    }
-    
+public class addEmployee extends javax.swing.JFrame {
+
     /**
-     * Creates new form addEntreprise
+     * Creates new form addEmployee
      */
-    public addEntreprise() {
+    public addEmployee() {
         initComponents();
     }
 
@@ -41,46 +31,40 @@ public class addEntreprise extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(400, 300));
-        setMinimumSize(new java.awt.Dimension(400, 300));
+        setMaximumSize(new java.awt.Dimension(380, 420));
+        setMinimumSize(new java.awt.Dimension(380, 420));
+        setPreferredSize(new java.awt.Dimension(380, 420));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ajout d'une entreprise");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 230, -1));
+        jLabel1.setText("Ajout d'un employee");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 230, -1));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
-            }
-        });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 230, 40));
-
-        jLabel2.setText("Numero de l'entreprise (Ex: S001)");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 270, 40));
 
         jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField2KeyReleased(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 230, 40));
-
-        jLabel3.setText("Nom de l'entreprise");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 270, 40));
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 270, 40));
 
         jButton1.setText("Valider");
         jButton1.setEnabled(false);
@@ -89,37 +73,48 @@ public class addEntreprise extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 90, 40));
+
+        jLabel2.setText("Adresse de l'employee ");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
+
+        jLabel3.setText("Numero de l'employee (Ex: E001)");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+
+        jLabel4.setText("Nom de l'employee ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if(this.jTextField2.getText().trim().isEmpty()){
-            this.jTextField2.setText("Entreprise-"+this.jTextField1.getText().toUpperCase());
-        }
-        if(new dbOperations().addEntreprise(this.jTextField1.getText().toUpperCase(), this.jTextField2.getText())){
-            String msg = "L'ajout de l'entreprise "+this.jTextField2.getText()+" est un succes";
-            JOptionPane.showMessageDialog(null, msg, "Succes", JOptionPane.INFORMATION_MESSAGE);
-            this.setVisible(false);
-        }
-        else{
-            String msg = "L'ajout de l'entreprise "+this.jTextField2.getText()+" a rencontre des problemes";
-            JOptionPane.showMessageDialog(null, msg, "Erreur", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        if (this.jTextField1.getText().matches("^[Ss]\\d{3}$") && this.jTextField1.getText().trim().length() >= 4) {
+        if(this.jTextField3.getText().trim().isEmpty()){
+            this.jTextField3.setText("Employee-"+this.jTextField2.getText().toUpperCase());
+        }
+        if(this.jTextField1.getText().trim().isEmpty()){
+            this.jTextField1.setText("Adresse-"+this.jTextField2.getText().toUpperCase());
+        }
+        if(new dbOperations().addEmployee(this.jTextField2.getText().toUpperCase(), this.jTextField3.getText(), this.jTextField1.getText())){
+            String msg = "L'ajout de l'employee "+this.jTextField3.getText()+" est un succes";
+            JOptionPane.showMessageDialog(null, msg, "Succes", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+        }
+        else{
+            String msg = "L'ajout de l'employee "+this.jTextField3.getText()+" a rencontre des problemes";
+            JOptionPane.showMessageDialog(null, msg, "Erreur", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        if (this.jTextField2.getText().matches("^[Ee]\\d{3}$") && this.jTextField2.getText().trim().length() >= 4) {
             // input matches the pattern
-            if(new dbOperations().checkNumEntreprise(this.jTextField1.getText().toUpperCase())){
+            if(new dbOperations().checkNumEmployee(this.jTextField2.getText().toUpperCase())){
                 this.jButton1.setEnabled(false);
                 //this.jLabel4.setText("*");
             }else{
@@ -132,10 +127,6 @@ public class addEntreprise extends javax.swing.JFrame {
             //this.jLabel4.setText("*");
             this.jButton1.setEnabled(false);
         }
-    }//GEN-LAST:event_jTextField1KeyReleased
-
-    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2KeyReleased
 
     /**
@@ -155,20 +146,20 @@ public class addEntreprise extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addEntreprise.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addEntreprise.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addEntreprise.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addEntreprise.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addEntreprise().setVisible(true);
+                new addEmployee().setVisible(true);
             }
         });
     }
@@ -178,7 +169,9 @@ public class addEntreprise extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

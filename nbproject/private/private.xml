@@ -5,7 +5,10 @@
         <group>
             <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/com/ks/dbOperations/dbOperations.java</file>
             <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/com/ks/ui/dashboardUI.java</file>
+            <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/com/ks/ui/addEmployee.java</file>
             <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/com/ks/chart/chart.java</file>
+            <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/com/ks/ui/travailUI.java</file>
+            <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/com/ks/pdf/pdfGen.java</file>
             <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/gestionemployee/GestionEmployee.java</file>
             <file>file:/home/thyler/testProjets/netbeans/GestionEmployee/src/com/ks/ui/addEntreprise.java</file>
         </group>
