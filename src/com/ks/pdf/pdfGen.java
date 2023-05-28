@@ -23,7 +23,7 @@ import java.util.Random;
  */
 public class pdfGen {
     
-    public String genPdf(JTable table,String type) {
+    public String genPdf(JTable table,String type,String t, String arr[], String arr2[]) {
         int min = 1;
         int max = 10000;
         Random random = new Random();
@@ -39,10 +39,19 @@ public class pdfGen {
             PdfWriter.getInstance(document, out);
             document.open();
             
-            Paragraph title = new Paragraph("Liste des "+type+"s\n\n",new Font(Font.FontFamily.HELVETICA, 22, Font.BOLD));
+            Paragraph title = new Paragraph(t,new Font(Font.FontFamily.HELVETICA, 22, Font.BOLD));
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
-
+            
+            int a = 0;
+            while(a < arr.length){
+                Paragraph el = new Paragraph(arr[a],new Font(Font.FontFamily.HELVETICA, 14));
+                el.setAlignment(Element.ALIGN_LEFT);
+                document.add(el);
+                a++;
+            }
+            
+            document.add(new Paragraph("\n"));
             PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
 
             // add table headers
@@ -63,9 +72,16 @@ public class pdfGen {
                 }
             }
             
-            
-
             document.add(pdfTable);
+            document.add(new Paragraph("\n"));
+            int b = 0;
+            while(b < arr2.length){
+                Paragraph el2 = new Paragraph(arr2[b],new Font(Font.FontFamily.HELVETICA, 14));
+                el2.setAlignment(Element.ALIGN_LEFT);
+                document.add(el2);
+                b++;
+            }
+            
             document.close();
         }catch(Exception e){
             System.out.println(e.getMessage());

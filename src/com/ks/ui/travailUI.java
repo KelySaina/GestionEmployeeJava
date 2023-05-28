@@ -4,12 +4,19 @@
  */
 package com.ks.ui;
 
+import com.ks.ui.dashboardUI;
+import com.ks.dbOperations.dbOperations;
+import com.ks.pdf.pdfGen;
+import javax.swing.JOptionPane;
+import java.time.LocalDate;
+
 /**
  *
  * @author thyler
  */
 public class travailUI extends javax.swing.JFrame {
     private String numEntreprise;
+    private String annee;
     
     public void setNumE(String nE){
         this.numEntreprise = nE;
@@ -19,13 +26,30 @@ public class travailUI extends javax.swing.JFrame {
         return this.numEntreprise;
     }
     
+    public void setAn(String an){
+        this.annee = an;
+    }
+    
+    public String getAn(){
+        return this.annee;
+    }
+    
     /**
      * Creates new form travailUI
      */
     public travailUI(String numE) {
         initComponents();
+        String nomE = new dbOperations().getNomEntreprise(this.getNumE());
         this.setNumE(numE);
-        this.jLabel2.setText(this.getNumE());
+        this.jLabel2.setText("Gestion des employees de l'entreprise "+nomE);
+        this.jLabel8.setText(this.getNumE());
+        this.jLabel9.setText(new dbOperations().getNomEntreprise(this.getNumE()));
+        if(this.jTextField1.getText().trim().isEmpty()){
+            this.jButton1.setEnabled(false);
+        }
+        this.jTable1.setModel(new dbOperations().listAllTravail(this.getNumE()));
+        this.jLabel12.setText(Integer.toString(new dbOperations().getNbEmployee(this.getNumE())));
+        this.jLabel13.setText(Integer.toString(new dbOperations().getSalaireTotal(this.getNumE()))+" Fmg");
     }
 
     /**
@@ -39,32 +63,406 @@ public class travailUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("G-Employee");
+        setMaximumSize(new java.awt.Dimension(1045, 525));
+        setMinimumSize(new java.awt.Dimension(1045, 525));
+        setPreferredSize(new java.awt.Dimension(1045, 525));
+        setResizable(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setFont(new java.awt.Font("Cantarell Extra Bold", 1, 22)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Titre");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 650, 34));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jLabel2)
-                .addContainerGap(203, Short.MAX_VALUE))
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Cantarell", 1, 16)); // NOI18N
+        jLabel4.setText("ANNEE:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, -1));
+
+        jLabel5.setFont(new java.awt.Font("Cantarell", 1, 16)); // NOI18N
+        jLabel5.setText("N. ENTREPRISE:");
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, -1));
+
+        jLabel6.setFont(new java.awt.Font("Cantarell", 1, 16)); // NOI18N
+        jLabel6.setText("RAISON SOCIALE:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 140, -1));
+
+        jLabel8.setText(" ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 230, -1));
+
+        jLabel9.setText(" ");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 220, -1));
+
+        jTable1.setModel(new dbOperations().listAllTravail(this.getNumE())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addComponent(jLabel2)
-                .addContainerGap(164, Short.MAX_VALUE))
-        );
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 490, 220));
+
+        jButton1.setText("Generer PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 335, 120, 30));
+
+        jLabel10.setText("Nombre d'employees:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
+
+        jLabel11.setText("Salaire total:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
+
+        jLabel12.setText("0");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, -1, -1));
+
+        jLabel13.setText("0");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, -1));
+
+        jTextField1.setBackground(new java.awt.Color(242, 242, 242));
+        jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextField1.setCaretColor(new java.awt.Color(255, 255, 255));
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 65, 140, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 510, 420));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel14.setText("N. Employee (Ex: E001)");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 210, -1));
+
+        jLabel15.setText("Date d'embauche (yyyy-mm-dd)");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 210, -1));
+
+        jLabel16.setText("Taux horaire");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
+        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 210, -1));
+
+        jLabel17.setText("Nombre d'heures");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
+        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 210, -1));
+
+        jButton2.setText("Ajouter");
+        jButton2.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 430, -1));
+
+        jButton3.setText("Enregistrer");
+        jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 430, -1));
+
+        jButton4.setText("Retirer");
+        jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 430, -1));
+
+        jButton5.setText("Annuler");
+        jButton5.setEnabled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 430, -1));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("GESTION DU TRAVAIL EMPLOYEES");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 490, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 490, 450));
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("LISTE DES SALAIRES EMPLOYEES");
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 510, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        if(this.jTextField1.getText().trim().isEmpty()){
+            this.jTable1.setModel(new dbOperations().listAllTravail(this.getNumE()));
+        }
+        this.jButton1.setEnabled(true);
+        this.setAn(this.jTextField1.getText());
+        this.jTable1.setModel(new dbOperations().listTravail(this.getNumE(), this.getAn()));
+        this.jLabel12.setText(Integer.toString(new dbOperations().getNbEmployee(this.getNumE(), this.getAn())));
+        this.jLabel13.setText(Integer.toString(new dbOperations().getSalaireTotal(this.getNumE(), this.getAn()))+" Fmg");
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String arr[]={"N.Entreprise: "+this.getNumE(),"Raison social: "+new dbOperations().getNomEntreprise(this.getNumE()),"Annee: "+this.jTextField1.getText()};
+        String arr2[]= {"Nombre d'employees: "+Integer.toString(new dbOperations().getNbEmployee(this.getNumE(), this.getAn())),"Salaire total: "+Integer.toString(new dbOperations().getSalaireTotal(this.getNumE(), this.getAn()))+" Fmg"};
+        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable1,"Travail","Liste des employees de l'entreprise "+new dbOperations().getNomEntreprise(this.getNumE()),arr,arr2)+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(this.jTextField3.getText().trim().isEmpty()){
+            this.jTextField3.setText(LocalDate.now().toString());
+        }
+        if(this.jTextField4.getText().trim().isEmpty()){
+            this.jTextField4.setText("0");
+        }
+        if(this.jTextField5.getText().trim().isEmpty()){
+            this.jTextField5.setText("8");
+        }
+        
+        if(new dbOperations().addTravail(this.jTextField2.getText(),this.getNumE(), Integer.parseInt(this.jTextField5.getText()), Integer.parseInt(this.jTextField4.getText()), this.jTextField3.getText())){
+            String msg = "L'ajout de l'employee "+this.jTextField2.getText()+" pour travailler dans l'entreprise "+new dbOperations().getNomEntreprise(this.getNumE())+" est un succes";
+            JOptionPane.showMessageDialog(null, msg, "Succes", JOptionPane.INFORMATION_MESSAGE);
+            this.jTextField2.setText(null);
+            this.jTextField3.setText(null);
+            this.jTextField4.setText(null);
+            this.jTextField5.setText(null);
+            this.jButton2.setEnabled(false);
+        }else{
+            String msg = "L'ajout de l'employee "+this.jTextField2.getText()+" pour travailler dans l'entreprise "+new dbOperations().getNomEntreprise(this.getNumE())+" a rencontre des problemes";
+            JOptionPane.showMessageDialog(null, msg, "Erreur", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        if (this.jTextField2.getText().matches("^[Ee]\\d{3}$") && this.jTextField2.getText().trim().length() >= 4) {
+            // input matches the pattern
+            if(new dbOperations().checkNumEmployee(this.jTextField2.getText())){
+                this.jButton2.setEnabled(true);
+                this.jButton3.setEnabled(false);
+                this.jButton4.setEnabled(false);
+                this.jButton5.setEnabled(false);
+                //this.jLabel4.setText("*");
+            }else{
+                this.jButton1.setEnabled(false);
+                this.jButton3.setEnabled(false);
+                this.jButton4.setEnabled(false);
+                this.jButton5.setEnabled(false);
+                //this.jLabel4.setText("*");
+            }
+        } else {
+            // input does not match the pattern
+            //this.jLabel4.setForeground(Color.RED);
+            //this.jLabel4.setText("*");
+            this.jButton2.setEnabled(false);
+            this.jButton3.setEnabled(false);
+            this.jButton4.setEnabled(false);
+            this.jButton5.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = this.jTable1.getSelectedRow();
+        Object id = this.jTable1.getValueAt(row, 0);
+        String r = new dbOperations().getTravailDetails(id.toString(), this.getNumE());
+        String [] r2 = r.split(",");
+        this.jTextField2.setEnabled(false);
+        this.jTextField3.setEnabled(false);
+        
+        this.jTextField2.setText(r2[0].toUpperCase());
+        this.jTextField3.setText(r2[3]);
+        this.jTextField4.setText(r2[2]);
+        this.jTextField5.setText(r2[1]);
+        
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(true);
+        this.jButton4.setEnabled(true);
+        this.jButton5.setEnabled(true);
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.jTextField2.setEnabled(true);
+        this.jTextField3.setEnabled(true);
+        
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(false);
+        this.jButton4.setEnabled(false);
+        this.jButton5.setEnabled(false);
+        this.jTable1.clearSelection();
+        
+        this.jTextField2.setText(null);
+        this.jTextField3.setText(null);
+        this.jTextField4.setText(null);
+        this.jTextField5.setText(null);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Cette action entrainera la suppression de toutes les informations sur le travail de cet employee dans l'entreprise. Continuer?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            // delete the record from the database
+            if(new dbOperations().deleteTravail(this.jTextField2.getText(),this.getNumE())){
+                JOptionPane.showMessageDialog(null, "Toutes informations concernant le travail de l'employee "+this.jTextField2.getText()+" dans cette entreprise ont ete retirees", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                this.jTable1.setModel(new dbOperations().listAllTravail(this.getNumE()));
+                
+                this.jTextField2.setEnabled(true);
+                this.jTextField3.setEnabled(true);
+                
+                this.jButton2.setEnabled(false);
+                this.jButton3.setEnabled(false);
+                this.jButton4.setEnabled(false);
+                this.jButton5.setEnabled(false);
+                this.jTable1.clearSelection();
+
+                this.jTextField2.setText(null);
+                this.jTextField3.setText(null);
+                this.jTextField4.setText(null);
+                this.jTextField5.setText(null);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Une erreur s'est produite", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formFocusGained
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if(new dbOperations().updateTravail(this.jTextField2.getText(),this.getNumE(), Integer.parseInt(this.jTextField5.getText()), Integer.parseInt(this.jTextField4.getText()), this.jTextField3.getText())){
+            JOptionPane.showMessageDialog(null, "Les modifications ont ete appliquees", "Succes", JOptionPane.INFORMATION_MESSAGE);
+            this.jTextField2.setEnabled(true);
+            this.jTextField3.setEnabled(true);
+            this.jTable1.setModel(new dbOperations().listAllTravail(this.getNumE()));
+
+            this.jButton2.setEnabled(false);
+            this.jButton3.setEnabled(false);
+            this.jButton4.setEnabled(false);
+            this.jButton5.setEnabled(false);
+            this.jTable1.clearSelection();
+
+            this.jTextField2.setText(null);
+            this.jTextField3.setText(null);
+            this.jTextField4.setText(null);
+            this.jTextField5.setText(null);
+        }else{
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        this.jTable1.setModel(new dbOperations().listAllTravail(this.getNumE()));
+        this.jLabel12.setText(Integer.toString(new dbOperations().getNbEmployee(this.getNumE())));
+        this.jLabel13.setText(Integer.toString(new dbOperations().getSalaireTotal(this.getNumE()))+" Fmg");
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        new dashboardUI().setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -102,7 +500,36 @@ public class travailUI extends javax.swing.JFrame {
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

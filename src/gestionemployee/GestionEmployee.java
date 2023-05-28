@@ -4,6 +4,7 @@
  */
 package gestionemployee;
 import com.ks.ui.dashboardUI;
+import com.ks.pdf.createDirectories;
 
 /**
  *
@@ -16,6 +17,11 @@ public class GestionEmployee {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        createDirectories c = new createDirectories();
+        c.create("./generatedPDF");
+        c.create("./generatedPDF/Employee");
+        c.create("./generatedPDF/Entreprise");
+        c.create("./generatedPDF/Travail");
         new dashboardUI().setVisible(true);
     }
     

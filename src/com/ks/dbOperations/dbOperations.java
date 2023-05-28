@@ -79,6 +79,63 @@ public class dbOperations {
         
     }
     
+    public TableModel listTravail(String numE, String annee){
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("N. Employee");
+        model.addColumn("Nom");
+        model.addColumn("Adresse");
+        model.addColumn("Salaire");
+        try{
+            
+            ResultSet rs = this.Connect().createStatement().executeQuery("select employee.numEmployee, employee.nomEmployee, employee.adresseEmployee, sum(travail.nbHeures*travail.tauxHoraire) as salaire from employee join travail on employee.numEmployee = travail.numEmployee where travail.numEntreprise = '"+numE+"' and year(travail.dateEmployee) like '%"+annee+"%' group by travail.numEmployee");
+            
+            while(rs.next()){
+                Object[] row = new Object[4];
+                row[0] = rs.getString("numEmployee");
+                row[1] = rs.getString("nomEmployee");
+                row[2] = rs.getString("adresseEmployee");
+                row[3] = rs.getInt("salaire");
+                model.addRow(row);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return model;
+        
+    }
+    
+    public TableModel listAllTravail(String numE){
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("N. Employee");
+        model.addColumn("Nom");
+        model.addColumn("Adresse");
+        model.addColumn("Salaire");
+        try{
+            
+            ResultSet rs = this.Connect().createStatement().executeQuery("select employee.numEmployee, employee.nomEmployee, employee.adresseEmployee, sum(travail.nbHeures*travail.tauxHoraire) as salaire from employee join travail on employee.numEmployee = travail.numEmployee where travail.numEntreprise = '"+numE+"' group by travail.numEmployee");
+            
+            while(rs.next()){
+                Object[] row = new Object[4];
+                row[0] = rs.getString("numEmployee");
+                row[1] = rs.getString("nomEmployee");
+                row[2] = rs.getString("adresseEmployee");
+                row[3] = rs.getInt("salaire");
+                model.addRow(row);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return model;
+        
+    }
+    
+    
     public boolean addEntreprise(String num, String nom){
         
         try{
@@ -123,6 +180,34 @@ public class dbOperations {
         return false;
         
     }
+    
+    public boolean addTravail(String numE, String numS, int nbH, int tauxH, String dateE){
+        try{
+            
+            ResultSet r = this.Connect().createStatement().executeQuery("select * from travail where numEmployee = '"+numE+"' and numEntreprise = '"+numS+"'");
+            while(r.next()){
+                return false;
+            }
+            
+            PreparedStatement stmt = this.Connect().prepareStatement("insert into travail(numEmployee,numEntreprise, nbHeures, tauxHoraire,dateEmployee) values(?,?,?,?,?)");
+            
+            stmt.setString(1, numE);
+            stmt.setString(2,numS);
+            stmt.setInt(3, nbH);
+            stmt.setInt(4,tauxH);
+            stmt.setString(5, dateE);
+            
+            int n = stmt.executeUpdate();
+            
+            if(n>0){
+                return true;
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 
     public boolean deleteEntreprise(String num){
         
@@ -139,6 +224,22 @@ public class dbOperations {
                 
                 return true;
             }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+        
+    }
+    
+    public boolean deleteTravail(String numE,String numS ){
+        
+        try{
+            
+            PreparedStatement stmt = this.Connect().prepareStatement("delete from travail where numEntreprise='"+numS+"' and numEmployee='"+numE+"'");
+            
+            int n = stmt.executeUpdate();    
+            return true;
             
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -178,6 +279,30 @@ public class dbOperations {
             stmt.setString(1, newNum);
             stmt.setString(2,newNom);
             stmt.setString(3,prevNum);
+            
+            int n = stmt.executeUpdate();
+            
+            if(n>0){
+                return true;
+            }    
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    
+    public boolean updateTravail(String numE, String numS, int nbH, int tauxH, String dateE){
+        
+        try{
+            
+            PreparedStatement stmt = this.Connect().prepareStatement("update travail set numEmployee=?, numEntreprise=?, nbHeures=?, tauxHoraire=?, dateEmployee=?  where numEntreprise=? and numEmployee=?");
+            stmt.setString(1, numE);
+            stmt.setString(2,numS);
+            stmt.setInt(3, nbH);
+            stmt.setInt(4,tauxH);
+            stmt.setString(5, dateE);
+            stmt.setString(6, numS);
+            stmt.setString(7, numE);
             
             int n = stmt.executeUpdate();
             
@@ -288,6 +413,144 @@ public class dbOperations {
         return false;
     }
     
+    public String getNomEntreprise(String numE){
+        String nomE="";
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select nomEntreprise from entreprise where numEntreprise = '"+numE+"'");
+            
+            while(r.next()){
+                nomE = r.getString("nomEntreprise");
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+       return nomE;
+    }
+    
+    public int getNbEmployee(String ne,String an){
+        int nb=0;
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select count(numEmployee) as nb from travail where numEntreprise = '"+ne+"' and year(dateEmployee) like '%"+an+"%'");
+            
+            while(r.next()){
+                nb = r.getInt("nb");
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return nb;
+    }
+    
+    public int getNbEmployee(String ne){
+        int nb=0;
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select count(numEmployee) as nb from travail where numEntreprise = '"+ne+"'");
+            
+            while(r.next()){
+                nb = r.getInt("nb");
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return nb;
+    }
+    
+    public int getSalaireTotal(String ne, String an){
+        int st=0;
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select sum(tauxHoraire*nbHeures) as st from travail where numEntreprise = '"+ne+"' and year(dateEmployee) like '%"+an+"%'");
+            
+            while(r.next()){
+                st = r.getInt("st");
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return st;
+    }
+    
+    public int getSalaireTotal(String ne){
+        int st=0;
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select sum(tauxHoraire*nbHeures) as st from travail where numEntreprise = '"+ne+"'");
+            
+            while(r.next()){
+                st = r.getInt("st");
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return st;
+    }
+    
+    public TableModel salaireGlob(String key){
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("N. Employee");
+        model.addColumn("Nom");
+        model.addColumn("Salaire");
+        try{
+            
+            ResultSet rs = this.Connect().createStatement().executeQuery("select employee.numEmployee, employee.nomEmployee, sum(travail.tauxHoraire*travail.nbHeures) as salaire from employee join travail on employee.numEmployee = travail.numEmployee where year(travail.dateEmployee) like '%"+key+"%' group by travail.numEmployee");
+            
+            while(rs.next()){
+                Object[] row = new Object[3];
+                row[0] = rs.getString("numEmployee");
+                row[1] = rs.getString("nomEmployee");
+                row[2] = rs.getInt("salaire");
+                model.addRow(row);
+            }
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return model;
+        
+    }
+    public int getSalaireGlobTotal(String an){
+        int st=0;
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select sum(tauxHoraire*nbHeures) as st from travail where year(dateEmployee) like '%"+an+"%'");
+            
+            while(r.next()){
+                st = r.getInt("st");
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return st;
+    }
+    public int getSalaireGlobTotal(){
+        int st=0;
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select sum(tauxHoraire*nbHeures) as st from travail");
+            
+            while(r.next()){
+                st = r.getInt("st");
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return st;
+    }
+    
+    public String getTravailDetails(String numE, String numS){
+        String res = "";
+        
+        try{
+            ResultSet r = this.Connect().createStatement().executeQuery("select numEmployee, nbHeures, tauxHoraire, dateEmployee from travail where numEmployee = '"+numE+"' and numEntreprise = '"+numS+"'");
+            
+            while(r.next()){
+                res = r.getString("numEmployee")+","+r.getInt("nbHeures")+","+r.getInt("tauxHoraire")+","+r.getString("dateEmployee");                
+            }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return res;
+    }
+    
     public DefaultPieDataset getChartDataset(){
         
         DefaultPieDataset dataset = new DefaultPieDataset();
@@ -296,7 +559,7 @@ public class dbOperations {
             ResultSet rs = this.Connect().createStatement().executeQuery("select employee.nomEmployee,SUM(travail.tauxHoraire*travail.nbHeures) as salaireEmployee from employee join travail on travail.numEmployee=employee.numEmployee group by travail.numEmployee");
 
             while(rs.next()){                
-                dataset.setValue(rs.getString("nomEmployee")+" ("+rs.getInt("salaireEmployee")+"Ar)", rs.getInt("salaireEmployee"));            
+                dataset.setValue(rs.getString("nomEmployee")+" ("+rs.getInt("salaireEmployee")+"Fmg", rs.getInt("salaireEmployee"));            
             }
             
         }catch(Exception e){

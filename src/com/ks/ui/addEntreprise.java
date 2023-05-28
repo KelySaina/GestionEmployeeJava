@@ -6,7 +6,6 @@ package com.ks.ui;
 import com.ks.dbOperations.dbOperations;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
-import java.awt.Color;
 
 /**
  *

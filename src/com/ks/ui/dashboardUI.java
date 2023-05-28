@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.ks.ui;
+
 import com.ks.dbOperations.dbOperations;
 import com.ks.ui.addEntreprise;
 import com.ks.ui.addEmployee;
@@ -13,6 +14,7 @@ import com.ks.chart.chart;
 import org.jfree.chart.ChartPanel;
 import javax.swing.UIManager;
 import javax.swing.SwingUtilities;
+
 
 
 
@@ -90,6 +92,7 @@ public class dashboardUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel7 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -121,6 +124,15 @@ public class dashboardUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton12 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -133,7 +145,10 @@ public class dashboardUI extends javax.swing.JFrame {
             .addGap(0, 500, Short.MAX_VALUE)
         );
 
+        jLabel6.setText("jLabel6");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("G-Employee");
         setMaximumSize(new java.awt.Dimension(1075, 575));
         setMinimumSize(new java.awt.Dimension(1075, 575));
         setResizable(false);
@@ -259,13 +274,13 @@ public class dashboardUI extends javax.swing.JFrame {
         jLabel4.setText("Rechercher");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
-        jButton11.setText("Generer PDF");
+        jButton11.setText("Generer PDF de la liste des entreprises");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, -1, -1));
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 490, -1, -1));
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 590, 520));
 
@@ -277,7 +292,7 @@ public class dashboardUI extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel8.setLayout(new java.awt.BorderLayout());
-        jPanel4.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 500));
+        jPanel4.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 240));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -354,15 +369,63 @@ public class dashboardUI extends javax.swing.JFrame {
         });
         jPanel5.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 200, -1));
 
-        jButton10.setText("Generer PDF");
+        jButton10.setText("Generer PDF de la liste des employees");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 480, -1, -1));
+        jPanel5.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 480, -1, -1));
 
         jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 690, 510));
+
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable3.setModel(new dbOperations().salaireGlob(this.jTextField3.getText())
+        );
+        jScrollPane3.setViewportView(jTable3);
+
+        jPanel6.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 370, 160));
+
+        jLabel9.setFont(new java.awt.Font("Cantarell", 1, 17)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Etat des salaires globaux des employees");
+        jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 0, 370, 30));
+
+        jLabel10.setText("ANNEE:");
+        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 30));
+
+        jTextField3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextField3.setCaretColor(new java.awt.Color(255, 255, 255));
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField3KeyReleased(evt);
+            }
+        });
+        jPanel6.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 150, 30));
+
+        jLabel11.setText("MONTANT TOTAL:");
+        jPanel6.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, -1, -1));
+
+        jLabel12.setText("0");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
+
+        jButton12.setText("Generer PDF");
+        jButton12.setEnabled(false);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 120, 30));
+
+        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 370, 280));
 
         jTabbedPane1.addTab("Employees", jPanel4);
 
@@ -374,6 +437,7 @@ public class dashboardUI extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         new travailUI(this.getNumEntreprise()).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -430,13 +494,17 @@ public class dashboardUI extends javax.swing.JFrame {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
+        //this.jPanel8.add(new ChartPanel(new chart().createPieChart("Salaire globale de chaque employee", new dbOperations().getChartDataset())));
     }//GEN-LAST:event_formFocusGained
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         // TODO add your handling code here:
+        this.jLabel12.setText(new dbOperations().getSalaireGlobTotal()+" Fmg");
         this.jTable1.setModel(new dbOperations().listEntreprise());
         this.jTable2.setModel(new dbOperations().listEmployee());
-        this.jPanel8.add(new ChartPanel(new chart().createPieChart("Salaire globale de chaque employee", new dbOperations().getChartDataset())));
+        this.jTable3.setModel(new dbOperations().salaireGlob(this.jTextField3.getText()));
+        this.jPanel8.add(new ChartPanel(new chart().createPieChart("Salaire global de chaque employee", new dbOperations().getChartDataset())));
+        
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -598,7 +666,7 @@ public class dashboardUI extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(null, "Cette action entrainera la suppression de tous les employees et leurs travails Continuer?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Cette action entrainera la suppression des informations concernant cet employee et l'ensemble de son travail. Continuer?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             // delete the record from the database
             if(new dbOperations().deleteEmployee(this.getNumEmployee())){
@@ -700,13 +768,41 @@ public class dashboardUI extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable1,"Entreprise")+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
+        String arr[]={};
+        String arr2[]={};
+        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable1,"Entreprise","Liste des entreprises",arr,arr2)+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable2,"Employee")+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
+        String arr[]={};
+        String arr2[]={};
+        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable2,"Employee","Liste des employees",arr,arr2)+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+        // TODO add your handling code here:
+        if(this.jTextField3.getText().trim().length() == 4){
+            this.jButton12.setEnabled(true);
+        }
+        else{
+            this.jButton12.setEnabled(false);
+        }
+        this.jTable3.setModel(new dbOperations().salaireGlob(this.jTextField3.getText()));
+        this.jLabel12.setText(Integer.toString(new dbOperations().getSalaireGlobTotal(this.jTextField3.getText()))+" Fmg");
+    }//GEN-LAST:event_jTextField3KeyReleased
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        String arr[]={"ANNEE: "+this.jTextField3.getText()};
+        String arr2[]={"MONTANT TOTAL: "+this.jLabel12.getText()};
+        //System.out.println(arr2[0]);
+        JOptionPane.showMessageDialog(null, "Le fichier est dans '"+new pdfGen().genPdf(this.jTable3,"Employee","Etats des salaires globaux des employees",arr,arr2)+"'", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -748,6 +844,7 @@ public class dashboardUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -757,25 +854,34 @@ public class dashboardUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
